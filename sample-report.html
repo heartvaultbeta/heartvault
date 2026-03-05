@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>HeartVAULT™: Culture Intelligence Report</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0b0e;--surface:#111318;--surface2:#15181f;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.04);
+  --text:#e8e4dc;--text2:rgba(232,228,220,0.55);--text3:rgba(232,228,220,0.28);
+  --gold:#c9a96e;--gold-dim:rgba(201,169,110,0.12);
+  --red:rgba(180,80,80,0.85);--red-dim:rgba(180,80,80,0.12);
+  --amber:rgba(200,150,60,0.85);--amber-dim:rgba(200,150,60,0.1);
+  --green:rgba(100,160,110,0.85);--green-dim:rgba(100,160,110,0.1);
+}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;line-height:1.6}
+
+/* ── SCREEN VIEW ── */
+.screen{max-width:780px;margin:0 auto;padding:40px 24px 80px}
+
+/* Cover */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 24px;border-bottom:1px solid var(--border2);position:relative}
+.cover-badge{font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.cover-heart{margin:0 auto 28px}
+.cover-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3rem);font-weight:300;letter-spacing:0.04em;margin-bottom:10px;line-height:1.15}
+.cover-title span{color:var(--gold)}
+.cover-sub{font-size:0.78rem;color:var(--text2);letter-spacing:0.06em;margin-bottom:36px}
+.cover-meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:3px;overflow:hidden;max-width:520px;width:100%;margin:0 auto 36px}
+.cover-meta-cell{background:var(--surface);padding:16px 14px;text-align:center}
+.cover-meta-label{font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
+.cover-meta-val{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--text);font-weight:400}
+.cover-meta-val.gold{color:var(--gold)}
+.confidential-stamp{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(201,169,110,0.2);border-radius:2px;padding:8px 16px;font-size:0.57rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--text3)}
+
+/* Section layout */
+.report-section{padding:56px 0;border-bottom:1px solid var(--border2)}
+.report-section:last-child{border-bottom:none}
+.sec-eyebrow{font-size:0.54rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3.5vw,2.1rem);font-weight:300;letter-spacing:0.03em;margin-bottom:18px;line-height:1.25}
+.sec-body{font-size:0.78rem;color:var(--text2);line-height:1.95;margin-bottom:16px}
+.sec-body em{color:var(--text);font-style:italic}
+.divider{width:32px;height:1px;background:rgba(201,169,110,0.25);margin:24px 0}
+
+/* Confidentiality page */
+.conf-box{background:var(--surface);border:1px solid rgba(201,169,110,0.15);border-radius:4px;padding:36px 32px;max-width:560px}
+.conf-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--gold);margin-bottom:18px;font-weight:300}
+.conf-list{list-style:none}
+.conf-list li{font-size:0.75rem;color:var(--text2);padding:8px 0;padding-left:18px;position:relative;border-bottom:1px solid var(--border2);line-height:1.7}
+.conf-list li:last-child{border-bottom:none}
+.conf-list li::before{content:'2013';position:absolute;left:0;color:rgba(201,169,110,0.4);font-size:0.65rem}
+
+/* Executive summary card */
+.exec-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:28px;margin-bottom:16px}
+.exec-card-title{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.exec-card-body{font-size:0.78rem;color:var(--text2);line-height:1.9}
+.exec-card-body strong{color:var(--text);font-weight:400}
+
+/* Risk flags */
+.risk-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:24px}
+.risk-item{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:16px 18px}
+.risk-badge{flex-shrink:0;font-size:0.5rem;letter-spacing:0.16em;text-transform:uppercase;padding:4px 9px;border-radius:2px;margin-top:2px;font-weight:400}
+.risk-badge.critical{background:var(--red-dim);color:var(--red);border:1px solid rgba(180,80,80,0.25)}
+.risk-badge.elevated{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(200,150,60,0.25)}
+.risk-badge.moderate{background:rgba(180,140,60,0.1);color:rgba(200,160,70,0.85);border:1px solid rgba(180,140,60,0.2)}
+.risk-item-text{font-size:0.75rem;color:var(--text2);line-height:1.75}
+.risk-item-text strong{color:var(--text);font-weight:400;display:block;margin-bottom:3px}
+
+/* Chamber themes */
+.chamber-block{margin-bottom:36px}
+.chamber-block-header{display:flex;align-items:baseline;gap:14px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border2)}
+.chamber-block-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:rgba(201,169,110,0.2);font-weight:300}
+.chamber-block-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--text)}
+.chamber-block-theme{font-size:0.54rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-left:auto}
+.theme-tag{display:inline-block;background:var(--gold-dim);border:1px solid rgba(201,169,110,0.2);border-radius:2px;padding:4px 10px;font-size:0.62rem;color:var(--gold);letter-spacing:0.08em;margin:4px 4px 4px 0}
+.quote-block{border-left:2px solid rgba(201,169,110,0.3);padding:12px 18px;margin:16px 0;background:var(--surface)}
+.quote-block p{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-style:italic;color:var(--text2);line-height:1.8}
+.quote-block .q-note{font-size:0.6rem;color:var(--text3);margin-top:6px;font-style:normal;font-family:'Inter',sans-serif;letter-spacing:0.06em}
+
+/* Phenomenological patterns */
+.pattern-card{background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:20px 22px;margin-bottom:12px}
+.pattern-card-title{font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--text);margin-bottom:6px}
+.pattern-card-body{font-size:0.74rem;color:var(--text2);line-height:1.85}
+.freq-bar-wrap{margin-top:10px}
+.freq-label{font-size:0.58rem;color:var(--text3);letter-spacing:0.08em;margin-bottom:4px;display:flex;justify-content:space-between}
+.freq-bar{height:3px;background:rgba(255,255,255,0.06);border-radius:2px}
+.freq-bar-fill{height:100%;border-radius:2px;background:linear-gradient(to right,rgba(201,169,110,0.4),var(--gold))}
+
+/* Recommendations */
+.rec-item{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--border2)}
+.rec-item:last-child{border-bottom:none}
+.rec-num{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:rgba(201,169,110,0.2);font-weight:300;flex-shrink:0;width:24px}
+.rec-label{font-size:0.57rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.rec-text{font-size:0.76rem;color:var(--text2);line-height:1.8}
+.rec-text strong{color:var(--text);font-weight:400}
+.rec-timeline{font-size:0.58rem;color:var(--text3);letter-spacing:0.1em;margin-top:5px}
+
+/* Print / download btn */
+.action-bar{position:sticky;bottom:24px;z-index:50;display:flex;justify-content:center;margin-top:40px}
+.dl-btn{display:inline-flex;align-items:center;gap:10px;padding:13px 28px;background:var(--bg);border:1px solid rgba(201,169,110,0.4);border-radius:2px;color:var(--gold);font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.3s;backdrop-filter:blur(12px)}
+.dl-btn:hover{background:var(--gold-dim)}
+
+@media print{
+  .action-bar{display:none}
+  body{background:#fff;color:#111}
+  :root{--bg:#fff;--surface:#f5f5f5;--surface2:#efefef;--text:#111;--text2:#444;--text3:#888;--gold:#9a7040;--border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.06)}
+}
+</style>
+</head>
+<body>
+<div class="screen">
+
+<!-- ── COVER ── -->
+<div class="cover">
+  <p class="cover-badge">HeartVAULT™ · Culture Intelligence Report</p>
+  <div class="cover-heart">
+    <svg width="72" height="68" viewBox="0 0 100 95" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,10 28,2 4,28 26,44" fill="none" stroke="#c9a96e" stroke-width="2.5" stroke-linejoin="round"/>
+      <polygon points="50,10 72,2 96,28 74,44" fill="none" stroke="#c9a96e" stroke-width="2.5" stroke-linejoin="round"/>
+      <polygon points="26,44 4,28 50,93" fill="rgba(201,169,110,0.07)" stroke="#c9a96e" stroke-width="2.5" stroke-linejoin="round"/>
+      <polygon points="74,44 96,28 50,93" fill="rgba(201,169,110,0.04)" stroke="#c9a96e" stroke-width="2.5" stroke-linejoin="round"/>
+      <polygon points="50,10 26,44 50,93 74,44" fill="rgba(201,169,110,0.03)" stroke="#c9a96e" stroke-width="2.5" stroke-linejoin="round"/>
+      <line x1="50" y1="10" x2="50" y2="93" stroke="rgba(201,169,110,0.5)" stroke-width="2"/>
+      <line x1="26" y1="44" x2="50" y2="10" stroke="rgba(201,169,110,0.3)" stroke-width="1.5"/>
+      <line x1="74" y1="44" x2="50" y2="10" stroke="rgba(201,169,110,0.3)" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <h1 class="cover-title">Heartfold Insight™<br><span>Culture Intelligence Report</span></h1>
+  <p class="cover-sub">Prepared exclusively for unit leadership · Not for external distribution</p>
+  <div class="cover-meta">
+    <div class="cover-meta-cell">
+      <p class="cover-meta-label">Unit</p>
+      <p class="cover-meta-val">Riverside Medical<br><span style="font-size:0.8rem;color:var(--text2)">Neonatal ICU</span></p>
+    </div>
+    <div class="cover-meta-cell">
+      <p class="cover-meta-label">Responses</p>
+      <p class="cover-meta-val gold">18 nurses</p>
+    </div>
+    <div class="cover-meta-cell">
+      <p class="cover-meta-label">Cycle</p>
+      <p class="cover-meta-val">Q1 · 2025</p>
+    </div>
+  </div>
+  <div class="confidential-stamp">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#c9a96e" stroke-width="1.5"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#c9a96e" stroke-width="1.5"/></svg>
+    Confidential · Heartfold Healing℠ · For Internal Use Only
+  </div>
+</div>
+
+<!-- ── CONFIDENTIALITY NOTICE ── -->
+<div class="report-section">
+  <p class="sec-eyebrow">Before You Read</p>
+  <h2 class="sec-title">Confidentiality Notice</h2>
+  <div class="conf-box">
+    <p class="conf-title">How this report was built: and what it protects.</p>
+    <ul class="conf-list">
+      <li>All nurse responses were submitted anonymously through the HeartVAULT™ platform. No names, employee IDs, shift times, or identifying details were collected at any point.</li>
+      <li>Raw responses are never shared with leadership. What you are reading is a synthesized, pattern-based analysis: not transcribed individual voices.</li>
+      <li>Composite language appearing in this report has been reconstructed from recurring themes across multiple respondents. No single response is quoted verbatim.</li>
+      <li>This report is intended for the unit's nurse leader and direct leadership team only. Distribution beyond this group is not authorized without written consent from Heartfold Healing℠.</li>
+      <li>The insights in this document are intended to inform, not indict. They represent the collective experience of your nursing staff during this reporting cycle.</li>
+      <li>Heartfold Healing℠ operates as an independent third party. This report does not constitute legal advice, HR documentation, or disciplinary evidence.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── EXECUTIVE SUMMARY ── -->
+<div class="report-section">
+  <p class="sec-eyebrow">Section 01</p>
+  <h2 class="sec-title">Executive Summary</h2>
+  <p class="sec-body">The Riverside Medical NICU completed its first HeartVAULT™ reflection cycle with an 18-nurse response cohort. What follows is a synthesis of 126 reflection entries across seven UNFOLD™ domains. The data paints a nuanced picture of a unit with genuine pockets of clinical pride and peer solidarity: operating inside a structural environment that is quietly eroding both.</p>
+  <p class="sec-body"><em>The nurses on this unit are not disengaged. They are depleted. The distinction matters enormously for what comes next.</em></p>
+
+  <div class="exec-card">
+    <p class="exec-card-title">Overall Culture Signal</p>
+    <p class="exec-card-body">Psychological safety on this unit is <strong>conditionally present</strong>: meaning nurses feel safe with peers but not with the formal hierarchy. Speaking up to charge nurses or unit leadership carries a perceived risk of retaliation or dismissal that has become normalized. <strong>83% of respondents described at least one moment in the past month when they chose silence over speaking up.</strong> This is not a communication problem. It is a structural trust problem.</p>
+  </div>
+  <div class="exec-card">
+    <p class="exec-card-title">Retention Signal</p>
+    <p class="exec-card-body">Retention risk on this unit is <strong>elevated</strong>. Six of eighteen respondents described active consideration of leaving the unit within the next six months. The primary drivers are not compensation-related: they are rooted in <strong>moral distress, invisible workload, and a perceived lack of leadership responsiveness</strong>. These are correctable with targeted, consistent action.</p>
+  </div>
+  <div class="exec-card">
+    <p class="exec-card-title">Protective Factors Present</p>
+    <p class="exec-card-body">Despite structural stress, this unit has meaningful protective factors: <strong>strong peer bonds, clear clinical purpose, and pride in patient outcomes</strong>. Nurses repeatedly cited their colleagues as their primary reason for staying. This peer cohesion is a leverage point: not a substitute for leadership action, but a foundation to build on.</p>
+  </div>
+</div>
+
+<!-- ── RISK INDICATORS ── -->
+<div class="report-section">
+  <p class="sec-eyebrow">Section 02</p>
+  <h2 class="sec-title">Risk Indicators &amp; Retention Flags</h2>
+  <p class="sec-body" style="margin-bottom:28px">The following risk indicators were identified through pattern analysis across all seven reflection domains. Severity is assessed based on frequency, emotional intensity, and proximity to stated intent to leave.</p>
+
+  <div class="risk-grid">
+    <div class="risk-item">
+      <span class="risk-badge critical">Critical</span>
+      <div class="risk-item-text">
+        <strong>Normalization of silence</strong>
+        83% of respondents described choosing not to speak up despite identifying safety or ethical concerns. This pattern: when normalized: predicts both adverse event risk and accelerated turnover. Nurses have learned that speaking up costs more than staying quiet.
+      </div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge critical">Critical</span>
+      <div class="risk-item-text">
+        <strong>Moral distress accumulation</strong>
+        Respondents across all experience levels described recurring moral distress: being asked to provide care they believed was inadequate due to staffing, resources, or system constraints. Unprocessed moral distress is among the strongest predictors of nurse departure and burnout-related deterioration.
+      </div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge elevated">Elevated</span>
+      <div class="risk-item-text">
+        <strong>Leadership trust deficit</strong>
+        Trust in unit leadership's responsiveness was rated low by 72% of respondents. The primary complaint was not hostility: it was invisibility. Nurses described feeling unheard not because leadership was unkind, but because follow-through on raised concerns was rare or absent.
+      </div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge elevated">Elevated</span>
+      <div class="risk-item-text">
+        <strong>Active departure consideration</strong>
+        6 of 18 respondents (33%) indicated they were actively considering leaving the unit within six months. Trigger themes included staffing ratios, feeling invisible to leadership, and emotional exhaustion with no perceived path to relief.
+      </div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge elevated">Elevated</span>
+      <div class="risk-item-text">
+        <strong>Recognition drought</strong>
+        When asked to complete the sentence "The last time I felt genuinely recognized at work was...": 11 of 18 respondents could not identify a specific instance within the past 90 days. Recognition is a known retention buffer; its sustained absence accelerates disengagement.
+      </div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge moderate">Moderate</span>
+      <div class="risk-item-text">
+        <strong>Workload invisibility</strong>
+        Nurses described a consistent pattern of tasks, emotional labor, and care coordination that is not captured in official staffing metrics. The work is heavier than it looks on paper: and nurses believe leadership either doesn't know or doesn't act on what they're carrying.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CHAMBER THEMES ── -->
+<div class="report-section">
+  <p class="sec-eyebrow">Section 03</p>
+  <h2 class="sec-title">Qualitative Themes by Chamber</h2>
+  <p class="sec-body" style="margin-bottom:32px">Each UNFOLD™ chamber captures a distinct domain of nursing experience. The following synthesis represents the dominant themes, emotional patterns, and narrative threads that emerged across respondents in each domain.</p>
+
+  <!-- Chamber 1: Uncover -->
+  <div class="chamber-block">
+    <div class="chamber-block-header">
+      <span class="chamber-block-num">01</span>
+      <span class="chamber-block-name">Uncover</span>
+      <span class="chamber-block-theme">Naming What's Heavy</span>
+    </div>
+    <p class="sec-body">The heaviest things named in this chamber were not clinical in nature: they were relational and structural. The most frequently surfaced burden was the feeling of carrying more than what is visible, and doing so without acknowledgment.</p>
+    <div style="margin-bottom:12px">
+      <span class="theme-tag">Invisible labor</span>
+      <span class="theme-tag">Emotional suppression</span>
+      <span class="theme-tag">Chronic understaffing</span>
+      <span class="theme-tag">Compassion fatigue</span>
+      <span class="theme-tag">Anticipatory grief</span>
+    </div>
+    <div class="quote-block">
+      <p>"The heaviest thing isn't the patients. It's knowing what the right thing is and not being able to do it because there aren't enough of us."</p>
+      <p class="q-note">Composite voice: reconstructed from recurring themes across 11 respondents</p>
+    </div>
+    <p class="sec-body">Nurses in the NICU setting carry a particular burden of anticipatory grief: the proximity to fragile life creates a form of emotional labor that is rarely named in formal workflows. Multiple respondents described this weight as something they have learned to compartmentalize rather than process.</p>
+  </div>
+
+  <!-- Chamber 2: Name -->
+  <div class="chamber-block">
+    <div class="chamber-block-header">
+      <span class="chamber-block-num">02</span>
+      <span class="chamber-block-name">Name</span>
+      <span class="chamber-block-theme">Psychological Safety</span>
+    </div>
+    <p class="sec-body">Safety on this unit is experienced as peer-conditional. Nurses feel psychologically safe with each other: and significantly less safe in formal hierarchical interactions. The last time most nurses felt unsafe to speak up was not distant history; it was recent and specific.</p>
+    <div style="margin-bottom:12px">
+      <span class="theme-tag">Fear of retaliation</span>
+      <span class="theme-tag">Peer safety vs. hierarchy safety</span>
+      <span class="theme-tag">Dismissed concerns</span>
+      <span class="theme-tag">Learned silence</span>
+    </div>
+    <div class="quote-block">
+      <p>"I know my colleagues have my back. I'm less sure about what happens when I escalate up the chain. I've seen what happens to people who push."</p>
+      <p class="q-note">Composite voice: reconstructed from recurring themes across 14 respondents</p>
+    </div>
+    <p class="sec-body">The pattern here is not overt hostility: it is the gradual accumulation of small moments where speaking up produced no change or visible consequence for the nurse who spoke. Safety is learned through experience, and this unit's nurses have learned, over time, that the cost of speaking is higher than the benefit.</p>
+  </div>
+
+  <!-- Chamber 3: Feel -->
+  <div class="chamber-block">
+    <div class="chamber-block-header">
+      <span class="chamber-block-num">03</span>
+      <span class="chamber-block-name">Feel</span>
+      <span class="chamber-block-theme">Connection & Being Seen</span>
+    </div>
+    <p class="sec-body">This was the most consistently positive chamber in the dataset. Peer connection on this unit is a genuine protective factor. Nurses named specific colleagues: not leadership, not the institution: as the reason they showed up this week. This is meaningful data.</p>
+    <div style="margin-bottom:12px">
+      <span class="theme-tag">Strong peer bonds</span>
+      <span class="theme-tag">Team as family</span>
+      <span class="theme-tag">Patient connection</span>
+      <span class="theme-tag">Leadership absence from support</span>
+    </div>
+    <div class="quote-block">
+      <p>"My team is what gets me through. We hold each other. Nobody above us is doing that."</p>
+      <p class="q-note">Composite voice: reconstructed from recurring themes across 16 respondents</p>
+    </div>
+    <p class="sec-body">Notably, formal leadership appeared in fewer than 20% of "who helped you" responses. This does not indicate that leadership is harmful: it indicates that leadership is not currently experienced as a source of support. There is an opportunity here.</p>
+  </div>
+
+  <!-- Chamber 4: Own -->
+  <div class="chamber-block">
+    <div class="chamber-block-header">
+      <span class="chamber-block-num">04</span>
+      <span class="chamber-block-name">Own</span>
+      <span class="chamber-block-theme">Moral Distress</span>
+    </div>
+    <p class="sec-body">Moral distress was present in nearly every response in this chamber. Nurses described being placed in positions where they knew the right thing to do and could not do it: due to staffing constraints, resource limitations, or institutional pressure. The weight of these moments accumulates.</p>
+    <div style="margin-bottom:12px">
+      <span class="theme-tag">Unsafe ratios</span>
+      <span class="theme-tag">Ethical compromise</span>
+      <span class="theme-tag">Systemic helplessness</span>
+      <span class="theme-tag">Silent complicity</span>
+      <span class="theme-tag">Post-shift residue</span>
+    </div>
+    <div class="quote-block">
+      <p>"I did what I could. But I knew it wasn't enough. And nobody asked me about it after. You just move on to the next shift and carry it."</p>
+      <p class="q-note">Composite voice: reconstructed from recurring themes across 15 respondents</p>
+    </div>
+    <p class="sec-body">The absence of structured moral distress processing: debriefs, peer support, or formal acknowledgment: was noted by multiple respondents. Nurses are not asking for perfection; they are asking to be witnessed in the impossible positions they navigate daily.</p>
+  </div>
+
+  <!-- Chamber 5: Learn -->
+  <div class="chamber-block">
+    <div class="chamber-block-header">
+      <span class="chamber-block-num">05</span>
+      <span class="chamber-block-name">Learn</span>
+      <span class="chamber-block-theme">Depletion & What Would Help</span>
+    </div>
+    <p class="sec-body">Respondents were specific and thoughtful in naming what would help. These are not abstract complaints: they are concrete, implementable signals. The most frequently named depletion driver was not workload volume alone, but the combination of high volume and low acknowledgment.</p>
+    <div style="margin-bottom:12px">
+      <span class="theme-tag">Staffing ratios</span>
+      <span class="theme-tag">Consistent charge leadership</span>
+      <span class="theme-tag">Post-shift debrief</span>
+      <span class="theme-tag">Flexibility on low-census days</span>
+      <span class="theme-tag">Visible follow-through</span>
+    </div>
+    <div class="quote-block">
+      <p>"I don't need a pizza party. I need to know that when I tell someone something is wrong, something actually changes."</p>
+      <p class="q-note">Composite voice: reconstructed from recurring themes across 13 respondents</p>
+    </div>
+  </div>
+
+  <!-- Chamber 6: Declare -->
+  <div class="chamber-block">
+    <div class="chamber-block-header">
+      <span class="chamber-block-num">06</span>
+      <span class="chamber-block-name">Declare</span>
+      <span class="chamber-block-theme">What's Still Working</span>
+    </div>
+    <p class="sec-body">Despite the weight of previous chambers, nurses found real things to name here. The most protective energy on this unit comes from patient outcomes, peer moments, and clinical mastery. These are the threads that, if pulled carefully, can be woven into something stronger.</p>
+    <div style="margin-bottom:12px">
+      <span class="theme-tag">Patient family moments</span>
+      <span class="theme-tag">Clinical wins</span>
+      <span class="theme-tag">Peer celebration</span>
+      <span class="theme-tag">Unit pride</span>
+      <span class="theme-tag">Expertise recognition</span>
+    </div>
+    <div class="quote-block">
+      <p>"When a baby goes home, I remember why I do this. Those moments are real. I just need more of the system to protect them instead of getting in the way."</p>
+      <p class="q-note">Composite voice: reconstructed from recurring themes across 17 respondents</p>
+    </div>
+  </div>
+
+  <!-- Chamber 7: Truth -->
+  <div class="chamber-block">
+    <div class="chamber-block-header">
+      <span class="chamber-block-num">07</span>
+      <span class="chamber-block-name">Truth</span>
+      <span class="chamber-block-theme">Truth-Telling</span>
+    </div>
+    <p class="sec-body">The final chamber asked nurses to deliver one honest truth to leadership. The responses in this chamber were the most direct, the most urgent, and: in several cases: the most personal. They are synthesized here with care.</p>
+    <div style="margin-bottom:12px">
+      <span class="theme-tag">We are still here</span>
+      <span class="theme-tag">We need to be heard</span>
+      <span class="theme-tag">Show us it matters</span>
+      <span class="theme-tag">We are closer to leaving than you know</span>
+    </div>
+    <div class="quote-block">
+      <p>"We are trying. We are still showing up. But we are closer to the edge than you realize. And we need you to actually hear that: not just receive it."</p>
+      <p class="q-note">Composite voice: reconstructed from recurring themes across 18 respondents</p>
+    </div>
+    <div class="quote-block">
+      <p>"I don't think you know what it actually feels like to work here. Not because you don't care: but because no one has ever had a safe way to tell you."</p>
+      <p class="q-note">Composite voice: reconstructed from recurring themes across 12 respondents</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHENOMENOLOGICAL PATTERNS ── -->
+<div class="report-section">
+  <p class="sec-eyebrow">Section 04</p>
+  <h2 class="sec-title">Thematic Analysis &amp; Phenomenological Patterns</h2>
+  <p class="sec-body" style="margin-bottom:28px">The following patterns represent meta-themes that emerged across multiple chambers: not isolated to a single domain, but woven through the collective narrative of this unit's nursing staff.</p>
+
+  <div class="pattern-card">
+    <p class="pattern-card-title">Pattern 01: The Silence Contract</p>
+    <p class="pattern-card-body">Across chambers 1, 2, and 7, a consistent phenomenological pattern emerged: nurses have internalized a form of strategic silence as a survival behavior. This is not apathy: it is learned adaptation to an environment where speaking up has historically produced risk without reward. The silence contract is implicit, never spoken, and deeply embedded in unit culture.</p>
+    <div class="freq-bar-wrap">
+      <div class="freq-label"><span>Frequency across respondents</span><span>83%</span></div>
+      <div class="freq-bar"><div class="freq-bar-fill" style="width:83%"></div></div>
+    </div>
+  </div>
+
+  <div class="pattern-card">
+    <p class="pattern-card-title">Pattern 02: Peer as Institution</p>
+    <p class="pattern-card-body">In the absence of reliable institutional support, nurses have built an informal care infrastructure among themselves. Colleagues function as emotional regulators, clinical safety nets, and retention anchors. This is adaptive and remarkable: and it is also unsustainable as a primary support system. When peer cohesion fractures (through turnover, conflict, or burnout), the unit loses its last buffer.</p>
+    <div class="freq-bar-wrap">
+      <div class="freq-label"><span>Frequency across respondents</span><span>89%</span></div>
+      <div class="freq-bar"><div class="freq-bar-fill" style="width:89%"></div></div>
+    </div>
+  </div>
+
+  <div class="pattern-card">
+    <p class="pattern-card-title">Pattern 03: The Invisible Workload Paradox</p>
+    <p class="pattern-card-body">Nurses consistently described doing more than what is formally documented or staffing models account for. The emotional labor, family communication, informal education, and moral navigation that accompany NICU nursing are largely invisible in institutional metrics. This creates a persistent experience of being undervalued: not because leadership is indifferent, but because the full weight of the work is structurally uncaptured.</p>
+    <div class="freq-bar-wrap">
+      <div class="freq-label"><span>Frequency across respondents</span><span>78%</span></div>
+      <div class="freq-bar"><div class="freq-bar-fill" style="width:78%"></div></div>
+    </div>
+  </div>
+
+  <div class="pattern-card">
+    <p class="pattern-card-title">Pattern 04: Proximity to Purpose</p>
+    <p class="pattern-card-body">A protective counterforce runs through this data: nurses in this unit have not lost their sense of purpose. Clinical meaning: the why behind the work: remains intact. This is significant. Nurses who are burned out but purposeful are retrievable. Nurses who have lost both are not. The NICU context provides consistent proximity to profound meaning, and nurses name this repeatedly as their anchor.</p>
+    <div class="freq-bar-wrap">
+      <div class="freq-label"><span>Frequency across respondents</span><span>94%</span></div>
+      <div class="freq-bar"><div class="freq-bar-fill" style="width:94%"></div></div>
+    </div>
+  </div>
+
+  <div class="pattern-card">
+    <p class="pattern-card-title">Pattern 05: The Responsiveness Gap</p>
+    <p class="pattern-card-body">The single most repeated structural complaint across the dataset is not a specific policy or person: it is the experience of raising a concern and watching it disappear. Nurses do not universally believe leadership is malicious; they believe leadership is unresponsive or ineffective. The gap between concern raised and visible action taken has eroded trust in a way that will require sustained, visible follow-through: not announcements: to repair.</p>
+    <div class="freq-bar-wrap">
+      <div class="freq-label"><span>Frequency across respondents</span><span>72%</span></div>
+      <div class="freq-bar"><div class="freq-bar-fill" style="width:72%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── RECOMMENDATIONS ── -->
+<div class="report-section">
+  <p class="sec-eyebrow">Section 05</p>
+  <h2 class="sec-title">Evidence-Based Recommendations</h2>
+  <p class="sec-body" style="margin-bottom:32px">The following recommendations are grounded in the data from this reporting cycle and aligned with evidence-based frameworks for nurse retention, psychological safety, and culture change. They are sequenced by urgency and implementation feasibility.</p>
+
+  <div>
+    <div class="rec-item">
+      <div class="rec-num">01</div>
+      <div>
+        <p class="rec-label">Immediate · Weeks 1–2</p>
+        <p class="rec-text"><strong>Acknowledge the data. Out loud.</strong> The most powerful first move is not a new policy: it is a leader standing in front of the team and saying: "We heard you. Here is what you told us. Here is what we are going to do." Nurses are not asking for perfection. They are asking for evidence that their words landed somewhere.</p>
+        <p class="rec-timeline">Timeline: Within 2 weeks of report delivery · Format: In-person unit meeting</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">02</div>
+      <div>
+        <p class="rec-label">Short-Term · Weeks 2–6</p>
+        <p class="rec-text"><strong>Implement a structured concern-response loop.</strong> Create a visible, low-barrier channel for nurses to raise concerns: and a committed 72-hour response window from leadership. The mechanism matters less than the consistency. Nurses need to learn, through repeated experience, that raising concerns produces action.</p>
+        <p class="rec-timeline">Timeline: 2–6 weeks · Format: Unit-level policy + leadership commitment</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">03</div>
+      <div>
+        <p class="rec-label">Short-Term · Weeks 2–8</p>
+        <p class="rec-text"><strong>Introduce brief, structured post-shift moral distress processing.</strong> This does not require a formal debriefing program. It requires a consistent 5-minute end-of-shift check-in: led by charge, structured around one question: "Was there a moment today that sat wrong with you?" Naming is the first form of processing.</p>
+        <p class="rec-timeline">Timeline: 2–8 weeks · Format: Charge nurse-led, shift-end protocol</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">04</div>
+      <div>
+        <p class="rec-label">Medium-Term · Months 1–3</p>
+        <p class="rec-text"><strong>Audit staffing model against actual workload.</strong> Commission an internal review that accounts for emotional labor, family communication burden, and care coordination tasks not captured in patient ratios. Present findings to staff. Even when the outcome is "we cannot change ratios right now," the act of naming the real weight is itself a form of recognition.</p>
+        <p class="rec-timeline">Timeline: 30–90 days · Format: Leadership-driven audit with staff input</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">05</div>
+      <div>
+        <p class="rec-label">Medium-Term · Months 1–3</p>
+        <p class="rec-text"><strong>Build a recognition practice: not a program.</strong> Recognition that moves nurses is specific, timely, and personal. It does not require budget. It requires leaders who pay attention. Establish a unit norm where specific clinical acts, difficult conversations navigated well, and moments of team solidarity are named publicly and consistently.</p>
+        <p class="rec-timeline">Timeline: Begin immediately, build to norm over 90 days</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">06</div>
+      <div>
+        <p class="rec-label">Ongoing · Quarterly</p>
+        <p class="rec-text"><strong>Repeat the HeartVAULT™ cycle quarterly.</strong> Culture does not change from a single data point. The value of this platform compounds with each cycle: as nurses see their words produce visible action, participation deepens, data quality improves, and the trust required for honest reflection grows. This first report is a baseline. The next one will tell you if anything changed.</p>
+        <p class="rec-timeline">Timeline: Quarterly · Format: HeartVAULT™ cycle re-deployment</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CLOSING ── -->
+<div class="report-section" style="text-align:center;padding-bottom:20px">
+  <svg width="48" height="46" viewBox="0 0 100 95" style="margin:0 auto 20px;display:block;opacity:0.6">
+    <polygon points="50,10 28,2 4,28 26,44" fill="none" stroke="#c9a96e" stroke-width="2.5" stroke-linejoin="round"/>
+    <polygon points="50,10 72,2 96,28 74,44" fill="none" stroke="#c9a96e" stroke-width="2.5" stroke-linejoin="round"/>
+    <polygon points="26,44 4,28 50,93" fill="rgba(201,169,110,0.07)" stroke="#c9a96e" stroke-width="2.5" stroke-linejoin="round"/>
+    <polygon points="74,44 96,28 50,93" fill="rgba(201,169,110,0.04)" stroke="#c9a96e" stroke-width="2.5" stroke-linejoin="round"/>
+    <polygon points="50,10 26,44 50,93 74,44" fill="rgba(201,169,110,0.03)" stroke="#c9a96e" stroke-width="2.5" stroke-linejoin="round"/>
+    <line x1="50" y1="10" x2="50" y2="93" stroke="rgba(201,169,110,0.5)" stroke-width="2"/>
+  </svg>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;color:var(--text2);font-style:italic;max-width:420px;margin:0 auto 16px;line-height:1.85">The nurses on your unit have been carrying something they needed a safe place to set down. You are holding that now. What you do with it is the most important leadership decision you will make this quarter.</p>
+  <p style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);margin-bottom:6px">Prepared by</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);letter-spacing:0.06em">Dr. Vanessa Abacan</p>
+  <p style="font-size:0.6rem;color:var(--text3);letter-spacing:0.08em;margin-top:4px">DNP, APRN-CNS, ACCNS-P, RNC-MNN, EBP-C · Founder, Heartfold Healing℠</p>
+  <div style="width:32px;height:1px;background:rgba(201,169,110,0.2);margin:24px auto"></div>
+  <p style="font-size:0.58rem;color:var(--text3);letter-spacing:0.1em">HeartVAULT™ is a Heartfold Healing℠ platform · Confidential · Trauma-informed · Built for nurses</p>
+</div>
+
+<!-- Download button -->
+<div class="action-bar">
+  <button class="dl-btn" onclick="window.print()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3v13M7 11l5 5 5-5" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Save / Print Report
+  </button>
+</div>
+
+</div>
+</body>
+</html>
