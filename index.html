@@ -917,12 +917,20 @@ function submitPartnerForm() {
 
   // Send to Google Sheets
   if (PARTNER_SHEET_URL !== 'YOUR_PARTNER_SHEET_WEBHOOK_URL') {
-    fetch(PARTNER_SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    }).catch(err => console.log('Sheet submission error:', err));
+    const formData = new FormData();
+formData.append("name", data.name);
+formData.append("title", data.title);
+formData.append("hospital", data.hospital);
+formData.append("unit", data.unit);
+formData.append("email", data.email);
+formData.append("phone", data.phone);
+formData.append("message", data.message);
+formData.append("timestamp", data.timestamp);
+
+fetch(PARTNER_SHEET_URL, {
+  method: "POST",
+  body: formData
+});
   }
 
   document.getElementById('partner-form-wrap').style.display = 'none';
