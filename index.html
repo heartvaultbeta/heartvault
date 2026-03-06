@@ -776,9 +776,14 @@ function dismissIntro() {
 // ── KEY GATE ──
 function checkGate() {
   const code = document.getElementById('gate-code').value.trim().toUpperCase();
-  if (code === 'HV-BETA-2025' || code === 'HV-BETA-2026') {
+
+  if (code.length >= 8) {   // basic validation
+
+    licenseKey = code;     // store the key
+
     document.getElementById('gate-err').style.display = 'none';
     showPage('disclaimer');
+
   } else {
     document.getElementById('gate-err').style.display = 'block';
   }
@@ -901,7 +906,12 @@ function nextChamber() {
     setTimeout(() => showPage('complete'), 1200);
   }
 }
-
+  
+// Generate unique entry ID for each vault submission
+function generateEntryID() {
+  return "HV-" + Date.now();
+}
+  
 // ── FORM SUBMISSIONS ──
 function submitPartnerForm() {
   const data = {
@@ -938,16 +948,18 @@ fetch(PARTNER_SHEET_URL, {
 }
 
 function submitVaultResponses() {
+  const entryID = generateEntryID();
   const data = {
-    uncover: responses[0] || '',
-    name: responses[1] || '',
-    feel: responses[2] || '',
-    own: responses[3] || '',
-    learn: responses[4] || '',
-    declare: responses[5] || '',
-    truth: responses[6] || '',
-    timestamp: new Date().toISOString()
-  };
+  entryID: entryID,
+  uncover: responses[0] || '',
+  name: responses[1] || '',
+  feel: responses[2] || '',
+  own: responses[3] || '',
+  learn: responses[4] || '',
+  declare: responses[5] || '',
+  truth: responses[6] || '',
+  timestamp: new Date().toLocaleString()
+};
 
   // Send to Google Sheets (anonymous, no identifying info)
   if (VAULT_SHEET_URL !== 'YOUR_VAULT_SHEET_WEBHOOK_URL') {
