@@ -965,12 +965,22 @@ function submitVaultResponses() {
 
   // Send to Google Sheets (anonymous, no identifying info)
   if (VAULT_SHEET_URL !== 'YOUR_VAULT_SHEET_WEBHOOK_URL') {
-    fetch(VAULT_SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    }).catch(err => console.log('Vault submission error:', err));
+    const formData = new FormData();
+formData.append("timestamp", data.timestamp);
+formData.append("entryID", data.entryID);
+formData.append("licenseKey", data.licenseKey);
+formData.append("uncover", data.uncover);
+formData.append("name", data.name);
+formData.append("feel", data.feel);
+formData.append("own", data.own);
+formData.append("learn", data.learn);
+formData.append("declare", data.declare);
+formData.append("truth", data.truth);
+
+fetch(VAULT_SHEET_URL, {
+  method: "POST",
+  body: formData
+}).catch(err => console.log("Vault submission error:", err));
   }
 }
 
