@@ -968,14 +968,14 @@ function submitVaultResponses() {
     const formData = new FormData();
 formData.append("timestamp", data.timestamp);
 formData.append("entryID", data.entryID);
-formData.append("licenseKey", data.licenseKey);
-formData.append("uncover", data.uncover);
-formData.append("name", data.name);
-formData.append("feel", data.feel);
-formData.append("own", data.own);
-formData.append("learn", data.learn);
-formData.append("declare", data.declare);
-formData.append("truth", data.truth);
+formData.append("licenseKey", licenseKey || "");
+formData.append("uncover", responses[0] || "");
+formData.append("name", responses[1] || "");
+formData.append("feel", responses[2] || "");
+formData.append("own", responses[3] || "");
+formData.append("learn", responses[4] || "");
+formData.append("declare", responses[5] || "");
+formData.append("truth", responses[6] || "");
 
 fetch(VAULT_SHEET_URL, {
   method: "POST",
