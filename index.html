@@ -772,7 +772,8 @@ function dismissIntro() {
     showPage('hub');
   }, 1200);
 }
-
+let licenseKey = '';
+  
 // ── KEY GATE ──
 function checkGate() {
   const code = document.getElementById('gate-code').value.trim().toUpperCase();
@@ -951,6 +952,7 @@ function submitVaultResponses() {
   const entryID = generateEntryID();
   const data = {
   entryID: entryID,
+  licenseKey: licenseKey,
   uncover: responses[0] || '',
   name: responses[1] || '',
   feel: responses[2] || '',
