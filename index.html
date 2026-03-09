@@ -51,7 +51,11 @@ a{color:var(--gold);text-decoration:none}
 .intro-crack{position:absolute;width:2px;height:0;
   background:linear-gradient(to bottom,transparent,rgba(201,169,110,0.9),transparent);
   left:50%;transform:translateX(-50%);animation:crackOpen 1.4s ease 3.2s forwards;z-index:3}
-@keyframes crackOpen{0%{height:0;opacity:0}50%{height:40%;opacity:1}100%{height:35%;opacity:0.6}}
+@keyframes crackOpen{
+0%{height:0;opacity:0}
+50%{height:180px;opacity:1}
+100%{height:220px;opacity:0.6}
+}
 .vault-arc{
   position:absolute;
   width:140px;
