@@ -1097,9 +1097,18 @@ function showPage(id) {
 function dismissIntro() {
   const overlay = document.getElementById('cinematic-intro');
   overlay.classList.add('fade-out');
+
   setTimeout(() => {
     overlay.style.display = 'none';
-    showPage('hub');
+
+    const params = new URLSearchParams(window.location.search);
+    const view = params.get('view');
+
+    if (view === 'partner') {
+      _showPage('partner');
+    } else {
+      showPage('hub');
+    }
   }, 1200);
 }
 let licenseKey = '';
