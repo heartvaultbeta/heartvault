@@ -64,9 +64,9 @@ a{color:var(--gold);text-decoration:none}
   border:2px solid transparent;
   border-top:2px solid rgba(201,169,110,0.85);
   border-right:2px solid rgba(201,169,110,0.55);
-  top:0%;
+  top:210px;
   left:50%;
-  transform:translate(-50%,-50%) rotate(-35deg);
+  transform:translateX(-50%) rotate(-35deg);
   opacity:0;
   animation:vaultArcSweep 2.2s ease 1.2s forwards;
   filter:drop-shadow(0 0 8px rgba(201,169,110,0.35));
@@ -77,14 +77,14 @@ a{color:var(--gold);text-decoration:none}
 @keyframes vaultArcSweep{
   0%{
     opacity:0;
-    transform:translate(-50%,-50%) rotate(-35deg);
+    transform:translateX(-50%) rotate(-35deg);
   }
   15%{
     opacity:1;
   }
   100%{
     opacity:0.45;
-    transform:translate(-50%,-50%) rotate(300deg);
+    transform:translateX(-50%) rotate(300deg);
   }
 }
 .intro-overlay-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(0.9rem,2vw,1.2rem);
