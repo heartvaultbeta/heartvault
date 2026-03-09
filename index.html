@@ -1327,6 +1327,15 @@ showPage = function(id) {
     playTrailer();
   }
 };
+  // Allow external links like index.html?view=partner
+document.addEventListener("DOMContentLoaded", function () {
+  const params = new URLSearchParams(window.location.search);
+  const view = params.get("view");
+
+  if (view === "partner") {
+    showPage("partner");
+  }
+});
 </script>
 </body>
 </html>
