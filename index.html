@@ -328,6 +328,113 @@ nav.visible{opacity:1;pointer-events:all}
     box-shadow:none;
   }
 }
+  /* ── DEMO HERO ANIMATION ── */
+
+.demo-hero-wrap{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:48px;
+  text-align:center;
+}
+
+.demo-logo-stage{
+  position:relative;
+  width:160px;
+  height:150px;
+}
+
+.demo-heart-logo{
+  width:100%;
+  height:100%;
+}
+
+.demo-heart-logo .chamber{
+  fill:rgba(201,169,110,0.05);
+  stroke:#c9a96e;
+  stroke-width:2;
+  opacity:0;
+  animation:chamberReveal 0.9s forwards;
+}
+
+/* chamber timing sequence */
+
+.chamber-1{animation-delay:0.4s}
+.chamber-2{animation-delay:0.8s}
+.chamber-3{animation-delay:1.2s}
+.chamber-4{animation-delay:1.6s}
+.chamber-5{animation-delay:2s}
+.chamber-6{animation-delay:2.4s}
+.chamber-7{animation-delay:2.8s}
+
+@keyframes chamberReveal{
+  0%{
+    opacity:0;
+    transform:scale(0.92);
+    filter:drop-shadow(0 0 0 rgba(201,169,110,0));
+  }
+  45%{
+    opacity:1;
+    transform:scale(1.02);
+    filter:drop-shadow(0 0 10px rgba(201,169,110,0.65));
+  }
+  100%{
+    opacity:1;
+    transform:scale(1);
+    filter:drop-shadow(0 0 3px rgba(201,169,110,0.25));
+  }
+}
+
+/* glow around heart */
+
+.demo-logo-glow{
+  position:absolute;
+  inset:-30px;
+  border-radius:50%;
+  background:radial-gradient(circle,
+    rgba(201,169,110,0.35) 0%,
+    rgba(201,169,110,0.15) 40%,
+    transparent 70%);
+  opacity:0;
+  animation:logoGlow 1.8s ease forwards;
+  animation-delay:3.2s;
+}
+
+@keyframes logoGlow{
+  from{opacity:0; transform:scale(0.9);}
+  to{opacity:1; transform:scale(1);}
+}
+
+/* demo button */
+
+.demo-hero-btn{
+  padding:16px 40px;
+  border:1px solid rgba(201,169,110,0.5);
+  background:rgba(201,169,110,0.08);
+  color:var(--gold);
+  font-family:'Inter',sans-serif;
+  font-size:0.72rem;
+  letter-spacing:0.24em;
+  text-transform:uppercase;
+  border-radius:3px;
+  cursor:pointer;
+  opacity:0;
+  animation:demoBtnFade 1s ease forwards;
+  animation-delay:4s;
+  transition:all 0.3s;
+}
+
+.demo-hero-btn:hover{
+  background:rgba(201,169,110,0.18);
+  border-color:var(--gold);
+}
+
+@keyframes demoBtnFade{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
 </style>
 </head>
 <body>
@@ -409,7 +516,7 @@ nav.visible{opacity:1;pointer-events:all}
   <p style="font-size:0.82rem;color:var(--text2);line-height:1.85;max-width:560px;margin:0 auto 24px">
     Walk through a guided demo of the nurse-facing HeartVAULT experience, then see how those reflections become leadership insight.
   </p>
-  <button class="link-gold" onclick="showPage('demo')" style="font-size:0.72rem;padding:14px 36px">
+  <button class="link-gold" onclick="showPage('demohero')" style="font-size:0.72rem;padding:14px 36px">
     View Demo →
   </button>
 </div>
@@ -595,7 +702,31 @@ nav.visible{opacity:1;pointer-events:all}
     <button class="consent-btn" onclick="showPage('trailer')">I understand. Continue.</button>
   </div>
 </div>
+<!-- PAGE: DEMO HERO -->
+<div class="page" id="page-demohero">
+  <div class="demo-hero-wrap">
+    <div class="demo-logo-stage">
+      <svg class="demo-heart-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon class="chamber chamber-1" points="100,35 62,22 18,62 54,86" />
+        <polygon class="chamber chamber-2" points="100,35 138,22 182,62 146,86" />
+        <polygon class="chamber chamber-3" points="54,86 18,62 100,178" />
+        <polygon class="chamber chamber-4" points="146,86 182,62 100,178" />
+        <polygon class="chamber chamber-5" points="100,35 54,86 100,178 146,86" />
+        <line class="chamber chamber-6" x1="100" y1="35" x2="100" y2="178" />
+        <g class="chamber chamber-7">
+          <line x1="54" y1="86" x2="100" y2="35" />
+          <line x1="146" y1="86" x2="100" y2="35" />
+        </g>
+      </svg>
 
+      <div class="demo-logo-glow"></div>
+    </div>
+
+    <button class="demo-hero-btn" onclick="showPage('demo')">
+      View HeartVAULT Culture Report
+    </button>
+  </div>
+</div>
   <!-- PAGE: DEMO TRAILER -->
 <div class="page" id="page-demo" style="padding:0;background:#000">
 
