@@ -403,6 +403,16 @@ nav.visible{opacity:1;pointer-events:all}
   <h2 class="hub-title">Healthcare Culture Intelligence</h2>
   <p class="hub-sub">A trauma-informed reflection system that captures what nurses carry, and translates it into patterns leaders can act on. Without names. Without fear.</p>
   <div class="hub-container">
+    <div style="max-width:760px;margin:0 auto 36px;text-align:center;padding:28px 24px;border:1px solid rgba(201,169,110,0.28);border-radius:6px;background:linear-gradient(135deg,rgba(201,169,110,0.08),rgba(201,169,110,0.03));box-shadow:0 0 36px rgba(201,169,110,0.05)">
+  <p style="font-size:0.55rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Public Demo</p>
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:300;line-height:1.2;margin-bottom:14px;color:var(--text)">Experience HeartVAULT</h3>
+  <p style="font-size:0.82rem;color:var(--text2);line-height:1.85;max-width:560px;margin:0 auto 24px">
+    Walk through a guided demo of the nurse-facing HeartVAULT experience, then see how those reflections become leadership insight.
+  </p>
+  <button class="link-gold" onclick="showPage('demo')" style="font-size:0.72rem;padding:14px 36px">
+    View Demo →
+  </button>
+</div>
     <div class="hub-top-row">
       <!-- Card: How It Works -->
       <div class="hub-card" onclick="showPage('leaders')">
@@ -431,15 +441,10 @@ nav.visible{opacity:1;pointer-events:all}
       </div>
     </div>
     <!-- Card: Enter Vault (full width, gold) -->
-    <div class="hub-card" onclick="showPage('demo')" style="border-color:rgba(201,169,110,0.45);background:linear-gradient(135deg,rgba(201,169,110,0.07),rgba(201,169,110,0.03));box-shadow:0 0 32px rgba(201,169,110,0.07);max-width:260px;margin:0 auto">
-      <svg class="hub-card-icon" viewBox="0 0 24 24" fill="none" style="opacity:1"><path d="M12 4C8.5 4 5 7 5 11c0 5 4 8 7 11 3-3 7-6 7-11 0-4-3.5-7-7-7z" stroke="#c9a96e" stroke-width="1.4"/></svg>
-      <p class="hub-card-tag" style="color:var(--gold)">Demo Experience</p>
-      <div class="hub-card-title" style="color:var(--gold)">See the Sample Culture Report</div>
-      <div class="hub-card-desc">Explore the HeartVAULT experience and see how it works.</div>
-      <div class="hub-card-arrow" style="opacity:1">→</div>
+  
     </div>
-  </div>
-</div>
+    </div>
+    </div>
 
 <!-- ══════════════════════════════════════ -->
 <!-- PAGE: HOW IT WORKS (LEADERS)          -->
@@ -604,14 +609,146 @@ nav.visible{opacity:1;pointer-events:all}
     </div>
   </div>
 
-  <button onclick="window.location.href='sample-report.html'" style="position:fixed;bottom:32px;right:32px;z-index:10;background:none;
+  <button onclick="showPage('demointro')" style="position:fixed;bottom:32px;right:32px;z-index:10;background:none;
     border:1px solid rgba(201,169,110,0.35);color:var(--gold);padding:10px 24px;
     font-family:Inter,sans-serif;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;
     cursor:pointer;border-radius:20px;">
-    View Sample Report →
+    Continue Demo →
   </button>
 </div>
-  
+
+<!-- PAGE: DEMO INTRO -->
+<div class="page" id="page-demointro">
+  <div class="vault-intro-inner fade-in">
+    <p class="sec-tag">Guided Demo</p>
+    <h2 class="sec-title">Step into the nurse-facing experience.</h2>
+    <p class="vault-intro-herald">This is the protected reflection flow a nurse would move through inside HeartVAULT.</p>
+
+    <div class="vault-intro-panels">
+      <div class="vault-intro-panel">
+        <div class="vault-intro-panel-title">Private</div>
+        <p class="vault-intro-panel-desc">A calm, structured space built for honest reflection.</p>
+      </div>
+      <div class="vault-intro-panel">
+        <div class="vault-intro-panel-title">Guided</div>
+        <p class="vault-intro-panel-desc">Each chamber is designed to surface what traditional surveys miss.</p>
+      </div>
+      <div class="vault-intro-panel">
+        <div class="vault-intro-panel-title">Protected</div>
+        <p class="vault-intro-panel-desc">Only patterns leave the vault, never identity.</p>
+      </div>
+    </div>
+
+    <div class="vault-intro-divider"></div>
+
+    <p class="vault-intro-strategic">
+      The next few screens are a guided preview of the nurse experience. You will not type or submit anything in this demo.
+    </p>
+
+    <button class="vault-intro-cta" onclick="showPage('demochamber1')">Begin Guided Demo →</button>
+  </div>
+</div>
+  <!-- PAGE: DEMO CHAMBER 1 -->
+<div class="page" id="page-demochamber1">
+  <div class="chamber-wrap fade-in">
+    <div class="seg-progress">
+      <div class="seg-bar active"></div>
+      <div class="seg-bar"></div>
+      <div class="seg-bar"></div>
+    </div>
+
+    <p class="ch-label">DEMO CHAMBER 1 OF 3</p>
+
+    <div class="ch-question">
+      <div style="font-family:Cormorant Garamond,serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:300;margin-bottom:6px">Uncover</div>
+      <div style="font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px">WHAT'S WEIGHING ON YOU</div>
+      <p style="font-family:Cormorant Garamond,serif;font-size:0.92rem;font-weight:300;font-style:italic;color:var(--text2);line-height:1.8;margin-bottom:24px">
+        About naming what has been weighing on you. Not fixing it. Not solving it. Just acknowledging it exists.
+      </p>
+      <div style="border:1px solid rgba(201,169,110,0.35);border-radius:4px;padding:20px 24px;background:rgba(201,169,110,0.04);margin-bottom:16px;font-size:0.92rem;color:var(--text);line-height:1.6">
+        What's been heavy for you lately at work or about work?
+      </div>
+    </div>
+
+    <div class="ch-field" style="text-align:left;white-space:pre-wrap;min-height:auto">
+I feel like I am constantly holding things together with less support than we need. We are expected to keep going no matter how thin staffing gets, and it feels like the emotional weight just keeps building.
+    </div>
+
+    <button class="ch-next" onclick="showPage('demochamber2')">Next →</button>
+  </div>
+</div>
+  <!-- PAGE: DEMO CHAMBER 2 -->
+<div class="page" id="page-demochamber2">
+  <div class="chamber-wrap fade-in">
+
+    <div class="seg-progress">
+      <div class="seg-bar done"></div>
+      <div class="seg-bar active"></div>
+      <div class="seg-bar"></div>
+    </div>
+
+    <p class="ch-label">DEMO CHAMBER 2 OF 3</p>
+
+    <div class="ch-question">
+      <div style="font-family:Cormorant Garamond,serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:300;margin-bottom:6px">Own</div>
+
+      <div style="font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px">
+        MORAL DISTRESS
+      </div>
+
+      <p style="font-family:Cormorant Garamond,serif;font-size:0.92rem;font-weight:300;font-style:italic;color:var(--text2);line-height:1.8;margin-bottom:24px">
+        Sometimes there are moments when something does not feel right for you or your patients.
+      </p>
+
+      <div style="border:1px solid rgba(201,169,110,0.35);border-radius:4px;padding:20px 24px;background:rgba(201,169,110,0.04);margin-bottom:16px;font-size:0.92rem;color:var(--text);line-height:1.6">
+        Was there a moment recently when something didn't feel right for you or your patients?
+      </div>
+    </div>
+
+    <div class="ch-field" style="text-align:left;white-space:pre-wrap;min-height:auto">
+There are times when we know a patient needs more attention than we can realistically give. We do what we can, but you leave the shift wondering if it was enough.
+    </div>
+
+    <button class="ch-next" onclick="showPage('demochamber3')">Next →</button>
+
+  </div>
+</div>
+  <!-- PAGE: DEMO CHAMBER 3 -->
+<div class="page" id="page-demochamber3">
+  <div class="chamber-wrap fade-in">
+
+    <div class="seg-progress">
+      <div class="seg-bar done"></div>
+      <div class="seg-bar done"></div>
+      <div class="seg-bar active"></div>
+    </div>
+
+    <p class="ch-label">DEMO CHAMBER 3 OF 3</p>
+
+    <div class="ch-question">
+      <div style="font-family:Cormorant Garamond,serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:300;margin-bottom:6px">Truth</div>
+
+      <div style="font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px">
+        TRUTH TELLING
+      </div>
+
+      <p style="font-family:Cormorant Garamond,serif;font-size:0.92rem;font-weight:300;font-style:italic;color:var(--text2);line-height:1.8;margin-bottom:24px">
+        This is the moment when a nurse says what leadership most needs to hear.
+      </p>
+
+      <div style="border:1px solid rgba(201,169,110,0.35);border-radius:4px;padding:20px 24px;background:rgba(201,169,110,0.04);margin-bottom:16px;font-size:0.92rem;color:var(--text);line-height:1.6">
+        If you could tell leadership one honest truth about what it's like to work here, what should they hear today?
+      </div>
+    </div>
+
+    <div class="ch-field" style="text-align:left;white-space:pre-wrap;min-height:auto">
+People are still showing up and doing their best, but the system often mistakes endurance for wellbeing. Surviving the shift is not the same as being supported.
+    </div>
+
+    <button class="ch-next" onclick="window.location.href='sample-report.html'">See How These Reflections Become Insight →</button>
+
+  </div>
+</div>
 <!-- ══════════════════════════════════════ -->
 <!-- PAGE: TRAILER VIDEO (fullscreen)    -->
 <!-- ══════════════════════════════════════ -->
