@@ -52,14 +52,36 @@ a{color:var(--gold);text-decoration:none}
   background:linear-gradient(to bottom,transparent,rgba(201,169,110,0.9),transparent);
   left:50%;transform:translateX(-50%);animation:crackOpen 1.4s ease 3.2s forwards;z-index:3}
 @keyframes crackOpen{0%{height:0;opacity:0}50%{height:40%;opacity:1}100%{height:70%;opacity:0.6}}
-.intro-dial{position:absolute;width:60px;height:60px;border:2px solid rgba(201,169,110,0.4);border-radius:50%;
-  opacity:0;animation:introDialSpin 2.4s cubic-bezier(0.4,0,0.2,1) 1.2s forwards;z-index:3}
-.intro-dial::after{content:'';position:absolute;top:4px;left:50%;width:2px;height:16px;background:var(--gold);
-  transform:translateX(-50%);border-radius:1px}
-@keyframes introDialSpin{
-  0%{opacity:0;transform:rotate(0deg)}10%{opacity:1}
-  35%{transform:rotate(-120deg)}55%{transform:rotate(80deg)}
-  75%{transform:rotate(-40deg)}85%{opacity:1}100%{opacity:0;transform:rotate(0deg)}
+.vault-arc{
+  position:absolute;
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  border:2px solid transparent;
+  border-top:2px solid rgba(201,169,110,0.85);
+  border-right:2px solid rgba(201,169,110,0.55);
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) rotate(-35deg);
+  opacity:0;
+  animation:vaultArcSweep 2.2s ease 1.2s forwards;
+  filter:drop-shadow(0 0 8px rgba(201,169,110,0.35));
+  z-index:3;
+  pointer-events:none;
+}
+
+@keyframes vaultArcSweep{
+  0%{
+    opacity:0;
+    transform:translate(-50%,-50%) rotate(-35deg);
+  }
+  15%{
+    opacity:1;
+  }
+  100%{
+    opacity:0.45;
+    transform:translate(-50%,-50%) rotate(300deg);
+  }
 }
 .intro-overlay-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(0.9rem,2vw,1.2rem);
   color:var(--text2);letter-spacing:0.2em;margin-top:28px;
@@ -463,8 +485,9 @@ nav.visible{opacity:1;pointer-events:all}
     <line x1="54" y1="86" x2="100" y2="35" stroke="rgba(201,169,110,0.3)" stroke-width="1.2"/>
     <line x1="146" y1="86" x2="100" y2="35" stroke="rgba(201,169,110,0.3)" stroke-width="1.2"/>
   </svg>
+  <div class="vault-arc"></div>
   <div class="intro-crack"></div>
-  <div class="intro-dial"></div>
+  
   <p class="intro-overlay-sub">Where Your Truth Is Protected</p>
   <button class="intro-overlay-enter" onclick="dismissIntro()">Enter HeartVAULT</button>
 </div>
@@ -1097,18 +1120,9 @@ function showPage(id) {
 function dismissIntro() {
   const overlay = document.getElementById('cinematic-intro');
   overlay.classList.add('fade-out');
-
   setTimeout(() => {
     overlay.style.display = 'none';
-
-    const params = new URLSearchParams(window.location.search);
-    const view = params.get('view');
-
-    if (view === 'partner') {
-      _showPage('partner');
-    } else {
-      showPage('hub');
-    }
+    showPage('hub');
   }, 1200);
 }
 let licenseKey = '';
@@ -1337,14 +1351,7 @@ showPage = function(id) {
   }
 };
   // Allow external links like index.html?view=partner
-document.addEventListener("DOMContentLoaded", function () {
-  const params = new URLSearchParams(window.location.search);
-  const view = params.get("view");
 
-  if (view === "partner") {
-  _showPage("partner");
-}
-});
 </script>
 </body>
 </html>
